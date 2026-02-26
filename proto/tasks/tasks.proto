@@ -1,0 +1,62 @@
+syntax = "proto3";
+package tasks;
+option go_package = "github.com/Vostok1611/project-protos/tasks";
+
+message Task{
+    string id      = 1;
+    string title   = 2;
+    string is_done = 3;
+    string user_id = 4;                                                                             
+}
+
+message CreateTaskRequest{
+    string title = 1;
+    string is_done = 2;
+    string user_id = 3;
+}
+
+message CreateTaskResponse{
+    Task task = 1;
+}
+
+message GetTaskRequest{
+    string id = 1;
+}
+
+message GetTaskResponse{
+    Task task = 1;
+}
+
+message UpdateTaskRequest{
+    string id               = 1;
+    optional string title   = 2;
+    optional string is_done = 3;
+}
+
+message UpdateTaskResponse{
+    Task task = 1;
+}
+
+message DeleteTaskRequest{
+    string id = 1;
+}
+
+message DeleteTaskResponse{
+    bool success = 1;
+}
+
+message ListTasksRequest{
+    optional string user_id = 1;
+}
+
+message ListTasksResponse{
+    repeated Task tasks = 1;
+}
+
+service TaskService{
+    rpc CreateTask (CreateTaskRequest)  returns (CreateTaskResponse);
+    rpc GetTask    (GetTaskRequest)     returns (GetTaskResponse);
+    rpc UpdateTask (UpdateTaskRequest)  returns (UpdateTaskResponse);
+    rpc DeleteTask (DeleteTaskRequest)  returns (DeleteTaskResponse);
+    rpc ListTasks  (ListTasksRequest)   returns (ListTasksResponse);
+}
