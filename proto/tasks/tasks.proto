@@ -19,12 +19,26 @@ message CreateTaskResponse{
     Task task = 1;
 }
 
-message GetTaskRequest{
+message GetTaskByIdRequest{
     string id = 1;
 }
 
-message GetTaskResponse{
+message GetTaskByIdResponse{
     Task task = 1;
+}
+
+message GetAllTasksRequest{}
+
+message GetAllTasksResponse{
+    repeated Task tasks = 1;
+}
+
+message GetTasksByUserRequest{
+    string user_id = 1;
+}
+
+message GetTasksByUserResponse{
+    repeated Task tasks = 1;
 }
 
 message UpdateTaskRequest{
@@ -45,18 +59,11 @@ message DeleteTaskResponse{
     bool success = 1;
 }
 
-message ListTasksRequest{
-    optional string user_id = 1;
-}
-
-message ListTasksResponse{
-    repeated Task tasks = 1;
-}
-
 service TaskService{
-    rpc CreateTask (CreateTaskRequest)  returns (CreateTaskResponse);
-    rpc GetTask    (GetTaskRequest)     returns (GetTaskResponse);
-    rpc UpdateTask (UpdateTaskRequest)  returns (UpdateTaskResponse);
-    rpc DeleteTask (DeleteTaskRequest)  returns (DeleteTaskResponse);
-    rpc ListTasks  (ListTasksRequest)   returns (ListTasksResponse);
+    rpc CreateTask      (CreateTaskRequest)     returns (CreateTaskResponse);
+    rpc GetTaskById     (GetTaskByIdRequest)    returns (GetTaskByIdResponse);
+    rpc GetAllTasks     (GetAllTasksRequest)    returns (GetAllTasksResponse); 
+    rpc UpdateTask      (UpdateTaskRequest)     returns (UpdateTaskResponse);
+    rpc DeleteTask      (DeleteTaskRequest)     returns (DeleteTaskResponse);
+    rpc GetTasksByUser  (GetTasksByUserRequest) returns (GetTasksByUserResponse);
 }
